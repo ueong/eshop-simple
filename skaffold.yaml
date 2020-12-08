@@ -18,3 +18,27 @@ profiles:
       projectId: architect-certification-289902
   deploy:
     kubeContext: gke_architect-certification-289902_asia-northeast3-c_skaffold-demo-cluster
+- name: helm
+  deploy:
+    helm:
+      releases:
+      - name: infrastructures
+        chartPath: helm-charts/infrastructures
+        valuesFiles:
+        - ./helm-charts/infrastructures/values.yaml
+      - name: backend
+        chartPath: helm-charts/backend
+        artifactOverrides:
+          image: eshop-backend-simple
+        setValues:
+          image.pullPolicy: Never
+        imageStrategy:
+          helm: {}
+      - name: frontend
+        chartPath: helm-charts/frontend
+        artifactOverrides:
+          image: eshop-frontend-simple
+        setValues:
+          image.pullPolicy: Never
+        imageStrategy:
+          helm: {}

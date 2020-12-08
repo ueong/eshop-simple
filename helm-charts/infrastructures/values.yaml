@@ -1,0 +1,4 @@
+replicaCount: 1
+redis:
+  image: "redis:alpine"
+  port: 6379

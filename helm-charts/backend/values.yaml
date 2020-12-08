@@ -1,0 +1,70 @@
+replicaCount: 1
+image:
+  repository: "eshop-backend-simple"
+  tag: "v0.0.1"
+  pullPolicy: "Always"
+imagePullSecrets:
+  enabled: false
+nodeSelector:
+  enabled: false
+  nodetype: app
+resources:
+  limits:
+    cpu: 300m
+    memory: 300Mi
+  requests:
+    cpu: 200m
+    memory: 180Mi
+service:
+  type: ClusterIP
+  externalPort: 8090
+  internalPort: 8090
+autoscale:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 50
+strategy:
+  enabled: false
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+readinessProbe:
+  enabled: false
+  type: httpGet
+  httpGet:
+    path: /
+    port: 8090
+  exec: 
+    command:
+  tcpSocket:
+    port:
+  initialDelaySeconds: 120
+  periodSeconds: 10
+  failureThreshold: 3
+  timeoutSeconds: 1
+  successThreshold: 1
+livenessProbe:
+  enabled: false
+  type: httpGet
+  httpGet:
+    path: /
+    port: 8090
+  exec: 
+    command:
+  tcpSocket:
+    port:
+  initialDelaySeconds: 200
+  periodSeconds: 20
+  failureThreshold: 3
+  timeoutSeconds: 1
+  successThreshold: 1
+lifecycle:
+  prestop:
+    enabled: false
+    # command: /opt/eap/bin/stop.sh
+persistence:
+  enabled: false
+timezone: Asia/Seoul
+javaOpts: -Djava.security.egd=file:/dev/./urandom

@@ -1,0 +1,7 @@
+apiVersion: v1
+description: eshop-backend Chart
+maintainers:
+- email: caffeinee@gmail.com
+  name: 정우영
+name: eshop-backend
+version: 0.1.0

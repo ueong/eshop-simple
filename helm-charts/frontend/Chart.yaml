@@ -1,0 +1,7 @@
+apiVersion: v1
+description: eshop-frontend Chart
+maintainers:
+- email: caffeinee@gmail.com
+  name: 정우영
+name: eshop-frontend
+version: 0.1.0
