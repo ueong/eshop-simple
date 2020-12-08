@@ -11,3 +11,10 @@ deploy:
   kubectl:
     manifests:
       - k8s/**.yaml
+profiles:
+- name: gke
+  build:
+    googleCloudBuild:
+      projectId: architect-certification-289902
+  deploy:
+    kubeContext: gke_architect-certification-289902_asia-northeast3-c_skaffold-demo-cluster

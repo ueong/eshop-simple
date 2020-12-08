@@ -2,12 +2,12 @@ plugins {
     id 'org.springframework.boot' version '2.2.6.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
-    id 'com.google.cloud.tools.jib' version '2.1.0'
+    id 'com.google.cloud.tools.jib' version '2.7.0'
 }
 
 group = 'com.samsungsds'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '8'
 
 configurations {
     developmentOnly
@@ -17,9 +17,7 @@ configurations {
 }
 
 repositories {
-	maven { url "http://70.121.224.52:8081/nexus/content/repositories/jitpack/" }
-	maven { url "http://70.121.224.52:8081/nexus/content/repositories/spring-libs-release/" }
-    // mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
