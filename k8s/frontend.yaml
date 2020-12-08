@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eshop-frontend-simple
+spec:
+  selector:
+    matchLabels:
+      app: eshop-frontend-simple
+  template:
+    metadata:
+      labels:
+        app: eshop-frontend-simple
+    spec:
+      containers:
+        - name: eshop-frontend-simple
+          image: eshop-frontend-simple
+          ports:
+          - containerPort: 8080
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eshop-frontend-simple
+spec:
+  type: ClusterIP
+  selector:
+    app: eshop-frontend-simple
+  ports:
+  - port: 8080
