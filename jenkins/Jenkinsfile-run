@@ -1,0 +1,37 @@
+pipeline {
+  environment {
+    PROJECT_ID = 'architect-certification-289902'
+    MEMBER_ID = 'xchange'
+  }
+  agent {
+    kubernetes {
+      yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    name: skaffold
+spec:
+  containers:
+  - name: skaffold
+    image: gcr.io/k8s-skaffold/skaffold:v1.17.1
+    command:
+    - cat
+    tty: true
+"""      
+    }
+  }
+  stages {
+    stage('skaffold run') {
+      steps {
+        container('skaffold') {
+            withCredentials([file(credentialsId: 'gcr-credential', variable: 'GCR_CREDENTIAL_JSON')]) {
+              sh 'gcloud auth activate-service-account --key-file ${GCR_CREDENTIAL_JSON}'
+              sh 'gcloud container clusters get-credentials skaffold-demo-cluster --zone asia-northeast3-c --project architect-certification-289902'
+              sh 'DOCKER_HOST=tcp://my-dind-svc:2375 skaffold run --default-repo gcr.io/architect-certification-289902/skaffold-demo'
+            }
+        }
+      }
+    }
+  }
+}
