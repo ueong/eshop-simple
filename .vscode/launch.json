@@ -5,11 +5,28 @@
   "version": "0.2.0",
   "configurations": [
     {
-        "type": "java",
-        "name": "Debug eshop-backend",
-        "request": "attach",
-        "hostName": "localhost",
-        "port": 5005
+      "name": "Kubernetes: Run/Debug",
+      "type": "cloudcode.kubernetes",
+      "request": "launch",
+      "skaffoldConfig": "${workspaceFolder}/skaffold.yaml",
+      "watch": true,
+      "cleanUp": true,
+      "portForward": true,
+      "debug": [
+        {
+          "image": "eshop-frontend-simple",
+          "sourceFileMap": {
+            "${workspaceFolder}/eshop-frontend": "/app"
+          }
+        }
+      ]
     },
+    {
+      "type": "java",
+      "name": "Debug eshop-backend",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": 5005
+    }
   ]
 }
